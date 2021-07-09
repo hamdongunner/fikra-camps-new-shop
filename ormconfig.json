@@ -1,0 +1,24 @@
+{
+   "type": "postgres",
+   "host": "batyr.db.elephantsql.com",
+   "port": 5432,
+   "username": "aqoggvct",
+   "password": "elnqDjt4KxyGyEIz82UtTUrZ4uJHhfNL",
+   "database": "aqoggvct",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "src/entity/**/*.ts"
+   ],
+   "migrations": [
+      "src/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "src/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+   }
+}
