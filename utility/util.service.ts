@@ -30,11 +30,9 @@ const okRes = (res, data, code = 200) => {
   return res.json(sendData);
 };
 
-const getOtp = () => Math.floor(1000 + Math.random() * 9000);
+// const getOtp = () => Math.floor(1000 + Math.random() * 9000);
+const getOtp = () => 1111;
 
-
-const paginate = (p = 1, s = 10) => ({take : s,skip: (p - 1) * s});
-
-
+const paginate = (p = 1, s = 10) => ({ take: s, skip: (p - 1) * s });
 
 export { okRes, errRes, getOtp, paginate };
