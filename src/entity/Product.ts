@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   ManyToOne,
   OneToMany,
+  BaseEntity,
 } from "typeorm";
 import { Brand } from "./Brand";
 import { OrderItem } from "./OrderItem";
@@ -13,7 +14,7 @@ import { Review } from "./Review";
 import { SubCategory } from "./SubCategory";
 
 @Entity()
-export class Product {
+export class Product extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

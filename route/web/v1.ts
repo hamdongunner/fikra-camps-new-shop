@@ -16,6 +16,17 @@ route.post("/verify/password", UserController.verifyPassword);
 
 route.get("/categories", HomeController.getCategories);
 
+// sub
+route.get("/subcategories/category/:id", HomeController.getSub);
+
+// products
+route.get("/products/subcategory/:id", HomeController.getProducts);
+
+// one product
+route.get("/products/:id", HomeController.getProduct);
+
+// checkout
+
 //  Need Auth
 route.use(auth);
 
