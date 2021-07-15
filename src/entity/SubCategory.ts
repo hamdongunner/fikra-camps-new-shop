@@ -22,7 +22,7 @@ export class SubCategory extends BaseEntity {
   @Column({ unique: true })
   nameAr: string;
 
-  @Column({})
+  @Column({ nullable: true })
   image: string;
 
   @Column({ default: true })
