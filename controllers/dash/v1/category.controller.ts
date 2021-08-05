@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { Raw } from "typeorm";
 import validate = require("validate.js");
-import { SubCategory } from "../../../src/entity/SubCategory";
+import { Category } from "../../../src/entity/Category";
 import { errRes, okRes, paginate } from "../../../utility/util.service";
 import Validator from "../../../utility/validation";
 
-export default class SubcategoryController {
+export default class CategoryController {
   /**
    *
    * @param req
@@ -14,21 +14,15 @@ export default class SubcategoryController {
    */
   static async getAll(req, res): Promise<object> {
     let data;
-    let { s, p, q, category } = req.query;
+    let { s, p, q } = req.query;
     let { take, skip } = paginate(p, s);
     let whereObj;
 
-    if (q && category)
-      whereObj = {
-        name: Raw((a) => `${a} ILIKE ${q}`),
-        category,
-      };
-    else if (category) whereObj = { category };
-    else if (q) whereObj = { name: Raw((a) => `${a} ILIKE ${q}`) };
-    else whereObj = {};
+    if (q) whereObj = { active: true, name: Raw((a) => `${a} ILIKE ${q}`) };
+    else whereObj = { active: true };
 
     try {
-      data = await SubCategory.findAndCount({
+      data = await Category.findAndCount({
         where: whereObj,
         take,
         skip,
@@ -50,13 +44,13 @@ export default class SubcategoryController {
   static async add(req: Request, res: Response): Promise<object> {
     const body = req.body;
     // validate the req
-    let notValid = validate(body, Validator.addSubCategory());
+    let notValid = validate(body, Validator.addCategory());
     if (notValid) return errRes(res, notValid);
     // try to add
 
     let data;
     try {
-      data = await SubCategory.create({
+      data = await Category.create({
         ...body,
       });
 
@@ -84,7 +78,7 @@ export default class SubcategoryController {
     let data;
 
     try {
-      data = await SubCategory.findOne(id);
+      data = await Category.findOne(id);
       if (!data) return errRes(res, "Not found");
 
       Object.keys(data).forEach((key) => {
@@ -110,7 +104,7 @@ export default class SubcategoryController {
     let data;
 
     try {
-      data = await SubCategory.findOne(id);
+      data = await Category.findOne(id);
       if (!data) return errRes(res, "Not Found");
       data.active = !data.active;
       await data.save();

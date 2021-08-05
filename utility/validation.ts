@@ -48,4 +48,85 @@ export default class Validate {
       type: "string",
     },
   });
+
+  static addCategory = (must = true) => ({
+    name: {
+      presence: must,
+      type: "string",
+    },
+    nameAr: {
+      presence: must,
+      type: "string",
+    },
+    image: {
+      presence: must,
+      type: "string",
+    },
+  });
+
+  static addSubCategory = (must = true) => ({
+    name: {
+      presence: must,
+      type: "string",
+    },
+    nameAr: {
+      presence: must,
+      type: "string",
+    },
+    image: {
+      presence: must,
+      type: "string",
+    },
+    category: {
+      presence: must,
+      type: "number",
+    },
+  });
+
+  static addProduct = (must = true) => ({
+    name: {
+      presence: must,
+      type: "string",
+    },
+    nameAr: {
+      presence: must,
+      type: "string",
+    },
+    description: {
+      presence: must,
+      type: "string",
+    },
+    descriptionAr: {
+      presence: must,
+      type: "string",
+    },
+    size: {
+      presence: must,
+      type: "string",
+    },
+    price: {
+      presence: must,
+      type: "number",
+    },
+    cost: {
+      presence: must,
+      type: "number",
+    },
+    quantity: {
+      presence: must,
+      type: "number",
+    },
+    warranty: {
+      presence: must,
+      type: "number",
+    },
+    image: {
+      presence: must,
+      type: "string",
+    },
+    subcategory: {
+      presence: must,
+      type: "number",
+    },
+  });
 }
