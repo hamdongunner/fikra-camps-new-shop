@@ -10,6 +10,7 @@ import CONFIG from "../../../config";
 import { Product } from "../../../src/entity/Product";
 import { Order } from "../../../src/entity/Order";
 import { OrderItem } from "../../../src/entity/OrderItem";
+import * as ZC from "zaincash";
 
 export default class PayController {
   /**
@@ -68,10 +69,44 @@ export default class PayController {
       await orderItem.save();
     }
 
+    let paymentFunction = paymentMethods[body.way];
+
     // generate the link for payment method TODO:
+    let paymetnResult = paymentFunction(order);
 
-    // return the details
-
-    return okRes(res, { order });
+    return okRes(res, paymetnResult);
   }
 }
+
+let zcFunction = async (order) => {
+  const paymentData = {
+    amount: order.total,
+    orderId: order.id,
+    serviceType: "Fikra Shop",
+    redirectUrl: "http:localhost:3000/zc/redirect",
+    production: false,
+    msisdn: "9647835077893",
+    merchantId: "5ffacf6612b5777c6d44266f",
+    secret: "$2y$10$hBbAZo2GfSSvyqAyV2SaqOfYewgYpfR1O19gIh4SqyGWdmySZYPuS",
+    lang: "ar",
+  };
+
+  // init a zc tr
+  let zc = new ZC(paymentData);
+
+  try {
+    let transationcId = await zc.init();
+
+    let url = `https://test.zaincash.iq/transaction/pay?id=${transationcId}`;
+    // return the details
+    return { order, url };
+  } catch (error) {
+    return { errMsg: "Something wrong" };
+  }
+};
+
+let paymentMethods = {
+  zc: zcFunction,
+  // ah: ahFunction,
+  // qi: qiFunction,
+};
