@@ -27,7 +27,7 @@ export default class PayController {
     let notValid = validate(body, Validator.checkout());
     if (notValid) return errRes(res, notValid);
 
-    if (!body.cart) return errRes(res, "cart shouldn't be empty");
+    if (body.cart.length < 1) return errRes(res, "cart shouldn't be empty");
 
     let total = 0;
     let items = [];
@@ -52,6 +52,9 @@ export default class PayController {
       total,
       totalAfterDiscount: total,
       paymentMethod: body.way,
+      address: body.address,
+      gov: body.gov,
+      city: body.city,
     });
 
     await order.save();
