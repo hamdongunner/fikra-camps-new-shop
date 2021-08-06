@@ -129,4 +129,58 @@ export default class Validate {
       type: "number",
     },
   });
+
+
+
+  // let fakeBody = {
+    //   way: "zc",
+    //   gov: "bagh",
+    //   city: "bagh",
+    //   address: "Mr. Milk",
+    //   cart: [
+    //     {
+    //       id: 1,
+    //       quantity: 2,
+    //     },
+    //     {
+    //       id: 2,
+    //       quantity: 1,
+    //     },
+    //   ],
+    // };
+  static checkout = (must = true) => ({
+    way: {
+      presence: must,
+      type: "string",
+    },
+    gov: {
+      presence: must,
+      type: "string",
+    },
+    city: {
+      presence: must,
+      type: "string",
+    },
+    address: {
+      presence: must,
+      type: "string",
+    },
+    cart: {
+      presence: must,
+      type: "array",
+    },
+
+  });
+
+  static checkoutItem  = (must = true) => ({
+    quantity: {
+      presence: must,
+      type: " number",
+    },
+    id: {
+      presence: must,
+      type: " number",
+    },
+    
+  });
 }

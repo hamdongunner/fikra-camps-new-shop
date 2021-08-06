@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  BaseEntity,
 } from "typeorm";
 import { Order } from "./Order";
 import { Product } from "./Product";
@@ -19,7 +20,7 @@ enum Status {
 }
 
 @Entity()
-export class OrderItem {
+export class OrderItem extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
