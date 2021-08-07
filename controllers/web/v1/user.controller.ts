@@ -61,7 +61,7 @@ export default class UserController {
     // save the user
     await user.save();
 
-    // send sms
+    // send sms TODO:
 
     let token = jwt.sign({ id: user.id }, CONFIG.jwtUserSecret);
 

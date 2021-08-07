@@ -20,6 +20,7 @@ export default class PayController {
    * @returns
    */
   static async checkout(req, res): Promise<object> {
+    let lang = req.query.lang;
     // validate the body
 
     const body = req.body;
@@ -27,7 +28,7 @@ export default class PayController {
     let notValid = validate(body, Validator.checkout());
     if (notValid) return errRes(res, notValid);
 
-    if (body.cart.length < 1) return errRes(res, "cart shouldn't be empty");
+    if (body.cart.length < 1) return errRes(res, "emptyCart", 400, lang);
 
     let total = 0;
     let items = [];

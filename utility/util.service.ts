@@ -2,10 +2,12 @@
  * ReE
  * @param body
  */
-const errRes = (res, err, code = 400, key = "err") => {
+const errRes = (res, err, code = 400, lang = "en", v = "", key = "err") => {
   if (typeof err == "object" && typeof err.message != "undefined") {
     err = err.message;
   } else if (typeof err == "string") {
+    // translate the error
+    err = translate(err, lang, v);
     let obj = {};
     obj[key] = [err];
     err = obj;
@@ -13,6 +15,22 @@ const errRes = (res, err, code = 400, key = "err") => {
   if (typeof code !== "undefined") res.statusCode = code;
   console.log(typeof err);
   return res.json({ status: false, errMsg: err });
+};
+
+const translate = (errCode, lang, v) => {
+  let obj = {
+    en: {
+      default: "Something went wrong",
+      emptyCart: "cart shouldn't be empty",
+    },
+    ar: {
+      default: "حصل خطأٌ ما ",
+      emptyCart: "الرجاء ملئ السله",
+      phoneExist: ` هذا الرقم ${v} موجود بالفعل`,
+    },
+  };
+
+  return obj[lang][errCode] ? obj[lang][errCode] : obj[lang]["default"];
 };
 
 /**
